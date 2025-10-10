@@ -1,0 +1,8 @@
+{
+  "name": "Berlin Climate Dialogue System",
+  "description": "A comprehensive application to collect, document, and visualise spontaneous civic climate conversations in Berlin, turning free-form dialogues into data-driven insights for community engagement and policymaking.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "prompt": ""
+}

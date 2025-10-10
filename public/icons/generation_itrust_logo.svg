@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400">
+  <rect width="1280" height="400" fill="white"/>
+  
+  <!-- Purple circle with Gi logo -->
+  <circle cx="200" cy="200" r="150" fill="#663399"/>
+  <text x="200" y="180" font-family="serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">G</text>
+  <text x="200" y="260" font-family="serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">i</text>
+  
+  <!-- Generation iTrust text -->
+  <text x="400" y="140" font-family="Montserrat, Arial, sans-serif" font-size="72" font-weight="bold" fill="#663399">Generation iTrust</text>
+  
+  <!-- Pronunciation guide -->
+  <text x="400" y="190" font-family="Montserrat, Arial, sans-serif" font-size="32" fill="#999">['haima:t]</text>
+  
+  <!-- Tagline -->
+  <text x="400" y="280" font-family="Montserrat, Arial, sans-serif" font-size="52" fill="#663399" font-style="italic">in care we trust</text>
+</svg>
