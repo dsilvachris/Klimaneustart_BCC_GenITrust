@@ -47,7 +47,12 @@ app.get('/api/v1/analytics', (req, res) => {
 
 // Conversations endpoint (mock)
 app.post('/api/v1/conversations', (req, res) => {
-  res.json({ success: true, id: 'mock-' + Date.now() });
+  console.log('Received conversation data:', req.body);
+  res.json({ success: true, id: 'mock-' + Date.now(), dialogue_id: 'mock-' + Date.now() });
+});
+
+app.get('/api/v1/conversations/:id', (req, res) => {
+  res.json({ id: req.params.id, status: 'completed' });
 });
 
 export default app;
