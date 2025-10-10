@@ -8,7 +8,7 @@ import SimplePieChart from "./SimplePieChart";
 import { DialerSipOutlined } from "@mui/icons-material";
 // import { Assessment, PeopleAlt, AccessTimeFilled } from '@mui/icons-material';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001';
 
 const mockData: AnalyticsData = {
   totalDialogues: 12,
