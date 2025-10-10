@@ -17,7 +17,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
-// Health check
+// Health check - Updated 2024-12-19
 app.get('/api/health', async (req, res) => {
   try {
     await pool.query('SELECT NOW()');
