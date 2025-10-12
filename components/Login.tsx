@@ -31,8 +31,8 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const DUMMY_USERNAME = "admin";
-  const DUMMY_PASSWORD = "password123";
+  const DUMMY_USERNAME = "GenerationITrust";
+  const DUMMY_PASSWORD = "Berlin@2030";
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();

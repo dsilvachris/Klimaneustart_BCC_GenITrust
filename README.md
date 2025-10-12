@@ -88,8 +88,8 @@ Frontend runs on: http://localhost:5173
 
 ## Login Credentials
 
-- **Username:** admin
-- **Password:** password123
+- **Username:** GenerationITrust
+- **Password:** Berlin@2030
 
 ## Application Flow
 
