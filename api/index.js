@@ -42,16 +42,49 @@ export default async function handler(req, res) {
         const avgDurationResult = await pool.query('SELECT AVG(duration) as avg FROM conversations WHERE duration > 0');
         const avgDuration = Math.round(parseFloat(avgDurationResult.rows[0].avg)) || 0;
         
+        // Get districts data
+        const districtsResult = await pool.query(`
+          SELECT jsonb_array_elements_text(districts) as district, COUNT(*) as count
+          FROM conversations WHERE districts != '[]'
+          GROUP BY district ORDER BY count DESC LIMIT 10
+        `);
+        const dialoguesByDistrict = districtsResult.rows.map(r => ({ name: r.district, value: parseInt(r.count) }));
+        
+        // Get topic details data
+        const topicsResult = await pool.query(`
+          SELECT jsonb_object_keys(topic_details) as topic, COUNT(*) as count
+          FROM conversations WHERE topic_details != '{}'
+          GROUP BY topic ORDER BY count DESC LIMIT 10
+        `);
+        const topTopics = topicsResult.rows.map(r => ({ name: r.topic, value: parseInt(r.count) }));
+        
+        // Get interest areas data
+        const interestResult = await pool.query(`
+          SELECT jsonb_array_elements_text(interest_areas) as area, COUNT(*) as count
+          FROM conversations WHERE interest_areas != '[]'
+          GROUP BY area ORDER BY count DESC LIMIT 10
+        `);
+        const topInterestAreas = interestResult.rows.map(r => ({ name: r.area, value: parseInt(r.count) }));
+        
+        // Get initiative engagement
+        const initiativesResult = await pool.query(`
+          SELECT 
+            SUM(jsonb_array_length(selected_initiatives)) as selected
+          FROM conversations WHERE selected_initiatives != '[]'
+        `);
+        const selectedCount = parseInt(initiativesResult.rows[0]?.selected) || 0;
+        
         return res.json({
           totalDialogues,
           totalParticipants,
           avgDuration,
-          dialoguesByDistrict: [],
-          topTopics: [],
-          topInterestAreas: [],
-          initiativeEngagement: { recommended: totalDialogues, selected: 0 }
+          dialoguesByDistrict,
+          topTopics,
+          topInterestAreas,
+          initiativeEngagement: { recommended: totalDialogues, selected: selectedCount }
         });
       } catch (error) {
+        console.error('Analytics error:', error);
         return res.json({
           totalDialogues: 0,
           totalParticipants: 0,
