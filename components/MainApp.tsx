@@ -16,7 +16,11 @@ import Step5District from "./steps/Step5Districts";
 import Step6Summary from "./steps/Step6Summary";
 import ThankYou from "./steps/ThankYou";
 
-const MainApp: React.FC = () => {
+interface MainAppProps {
+  onNavigateToDashboard?: () => void;
+}
+
+const MainApp: React.FC<MainAppProps> = ({ onNavigateToDashboard }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [conversationData, setConversationData] = useState<ConversationData>({
     ...INITIAL_CONVERSATION_DATA,
@@ -97,7 +101,7 @@ const MainApp: React.FC = () => {
         return <Step6Summary {...commonProps} onNext={handleNext} />;
       default:
         if (currentStep >= STEPS.length) {
-          return <ThankYou {...commonProps} />;
+          return <ThankYou {...commonProps} onNavigateToDashboard={onNavigateToDashboard} />;
         }
         // Fallback for step 0
         return <Step0Welcome onNext={handleNext} />;

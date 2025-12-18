@@ -2,14 +2,19 @@ import React from "react";
 import { Box, Typography, Button, Paper } from "@mui/material";
 import { AppProps } from "../../types";
 
-const ThankYou: React.FC<AppProps> = ({ onRestart, data }) => {
+interface ThankYouProps extends AppProps {
+  onNavigateToDashboard?: () => void;
+}
+
+const ThankYou: React.FC<ThankYouProps> = ({ onRestart, data, onNavigateToDashboard }) => {
   console.log("Submitting Data: ", data);
   const initiativeCount = data.selectedInitiatives.length;
   console.log("initiativeCount", initiativeCount);
 
   const handleDashboard = () => {
-    // Navigate to dashboard - you can implement this based on your routing
-    window.location.href = '/dashboard'; // or use your router
+    if (onNavigateToDashboard) {
+      onNavigateToDashboard();
+    }
   };
 
   return (
@@ -70,19 +75,21 @@ const ThankYou: React.FC<AppProps> = ({ onRestart, data }) => {
 
       {/* Action Buttons */}
       <Box sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 2 }}>
-        <Button
-          onClick={handleDashboard}
-          variant="contained"
-          size="large"
-          sx={{
-            width: "100%",
-            bgcolor: "#e70000",
-            color: "#FFFFFF",
-            "&:hover": { bgcolor: "#cc0000" },
-          }}
-        >
-          Dashboard
-        </Button>
+        {onNavigateToDashboard && (
+          <Button
+            onClick={handleDashboard}
+            variant="contained"
+            size="large"
+            sx={{
+              width: "100%",
+              bgcolor: "#e70000",
+              color: "#FFFFFF",
+              "&:hover": { bgcolor: "#cc0000" },
+            }}
+          >
+            Dashboard
+          </Button>
+        )}
         
         <Button
           onClick={onRestart}

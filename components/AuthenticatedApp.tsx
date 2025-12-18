@@ -17,12 +17,20 @@ const AuthenticatedApp: React.FC = () => {
     setView(newView);
   };
 
+  const handleNavigateToDashboard = () => {
+    setView("dashboard");
+  };
+
   return (
     <Box sx={{ pb: "56px" }}>
       {" "}
       {/* Padding at the bottom to avoid content being hidden by the nav bar */}
       <Container maxWidth="md" sx={{ mt: 2, mb: 2 }}>
-        {view === "dialogue" ? <MainApp /> : <AnalyticsDashboard />}
+        {view === "dialogue" ? (
+          <MainApp onNavigateToDashboard={handleNavigateToDashboard} />
+        ) : (
+          <AnalyticsDashboard />
+        )}
       </Container>
       <BottomNavigationBar currentView={view} onTabChange={handleViewChange} />
     </Box>
