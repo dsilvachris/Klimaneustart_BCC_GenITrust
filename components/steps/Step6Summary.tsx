@@ -83,19 +83,24 @@ const Step6Summary: React.FC<AppProps> = ({
     setError("");
     try {
       const payload = { ...data, sendCopy, status: "completed" };
-      console.log("Payload: ", payload);
+      console.log("Submitting payload:", payload);
+      console.log("API URL:", import.meta.env.PROD ? 'Production' : 'Development');
+      
       const result = await saveConversation(payload);
-      console.log("Conversation saved:", result);
+      console.log("✅ Conversation saved successfully:", result);
 
       if (sendCopy) {
         console.log("User requested a copy. Triggering email service...");
       }
 
+      // Show success message briefly before proceeding
+      alert(`✅ Form submitted successfully! ID: ${result.id}`);
       onNext();
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : "Failed to submit conversation. Please try again.";
       setError(errorMessage);
-      console.error("Submission error:", e);
+      console.error("❌ Submission error:", e);
+      alert(`❌ Submission failed: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
     }
