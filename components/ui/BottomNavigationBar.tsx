@@ -8,9 +8,8 @@ let editNotes = "/icons/note_in_folder_icon.png";
 let piechartIcon = "/icons/pie_chart_icon.png";
 
 interface BottomNavigationBarProps {
-  currentView: "dialogue" | "dashboard";
-  // onTabChange: (tabName: 'reports' | 'history') => void;
-  onTabChange: (view: "dialogue" | "dashboard") => void;
+  currentView: "dialogue" | "dashboard" | "reports";
+  onTabChange: (view: "dialogue" | "dashboard" | "reports") => void;
 }
 
 const BottomNavigationBar: React.FC<BottomNavigationBarProps> = ({
@@ -28,7 +27,7 @@ const BottomNavigationBar: React.FC<BottomNavigationBarProps> = ({
 
   const handleChange = (
     event: React.SyntheticEvent,
-    newValue: "dialogue" | "dashboard"
+    newValue: "dialogue" | "dashboard" | "reports"
   ) => {
     onTabChange(newValue);
   };
@@ -74,6 +73,12 @@ const BottomNavigationBar: React.FC<BottomNavigationBarProps> = ({
           value="dashboard"
           icon={<img src={piechartIcon} width={24} height={24}></img>}
           sx={currentView === "dashboard" && { background: COLORS.grey2 }}
+        />
+        <BottomNavigationAction
+          label="Reports"
+          value="reports"
+          icon={<img src={editNotes} width={24} height={24}></img>}
+          sx={currentView === "reports" && { background: COLORS.grey2 }}
         />
       </BottomNavigation>
     </Paper>

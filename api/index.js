@@ -98,6 +98,22 @@ export default async function handler(req, res) {
       }
     }
     
+    // Get all conversations endpoint
+    if (url === '/api/v1/conversations' && method === 'GET') {
+      try {
+        const result = await pool.query(`
+          SELECT id, uuid, main_interest, livable_city, notes, topic_details, 
+                 districts, selected_initiatives, interest_areas, observer_reflection,
+                 surprise, num_people, duration, location, is_anonymous, share_contact,
+                 created_at
+          FROM conversations ORDER BY created_at DESC
+        `);
+        return res.json(result.rows);
+      } catch (error) {
+        return res.status(500).json({ error: 'Failed to fetch conversations', details: error.message });
+      }
+    }
+    
     // Conversations endpoint
     if (url === '/api/v1/conversations' && method === 'POST') {
       try {

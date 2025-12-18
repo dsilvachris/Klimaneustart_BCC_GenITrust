@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, CircularProgress, Paper } from "@mui/material";
+import { Box, Typography, CircularProgress, Paper, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { AnalyticsData } from "./mock_analytics_data";
 import StatCard from "./StatCard";
 import SimpleBarChart from "./SimpleBarChart";
 import SimplePieChart from "./SimplePieChart";
-import { DialerSipOutlined } from "@mui/icons-material";
+import { DialerSipOutlined, PictureAsPdf } from "@mui/icons-material";
+import { generateAnalyticsReport } from "../utils/pdfGenerator";
 // import { Assessment, PeopleAlt, AccessTimeFilled } from '@mui/icons-material';
 
 const API_BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:3001';
@@ -118,9 +119,19 @@ const AnalyticsDashboard: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
-        Analytics Dashboard
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" component="h1" fontWeight="bold">
+          Analytics Dashboard
+        </Typography>
+        <Button
+          variant="contained"
+          startIcon={<PictureAsPdf />}
+          onClick={() => generateAnalyticsReport(data)}
+          sx={{ bgcolor: '#e70000', '&:hover': { bgcolor: '#cc0000' } }}
+        >
+          Export PDF Report
+        </Button>
+      </Box>
 
       {/* Stat Cards */}
       <Grid container spacing={3} sx={{ mb: 3 }}>
