@@ -12,8 +12,9 @@ import {
   CircularProgress,
   Button
 } from '@mui/material';
-import { PictureAsPdf, Visibility } from '@mui/icons-material';
+import { PictureAsPdf, TableChart } from '@mui/icons-material';
 import { generateConversationReport } from '../utils/pdfGenerator';
+import { exportConversationsToExcel } from '../utils/excelGenerator';
 
 const API_BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:3001';
 
@@ -100,9 +101,19 @@ const ConversationsList: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
-        Conversations Reports
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" component="h1" fontWeight="bold">
+          Conversations Reports
+        </Typography>
+        <Button
+          variant="contained"
+          startIcon={<TableChart />}
+          onClick={() => exportConversationsToExcel(conversations)}
+          sx={{ bgcolor: '#00bb70', '&:hover': { bgcolor: '#009960' } }}
+        >
+          Export All to Excel
+        </Button>
+      </Box>
       
       <Paper sx={{ mt: 2 }}>
         <List>
@@ -134,13 +145,15 @@ const ConversationsList: React.FC = () => {
                 }
               />
               <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  onClick={() => handleGenerateReport(conversation)}
-                  sx={{ color: '#e70000' }}
-                >
-                  <PictureAsPdf />
-                </IconButton>
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                  <IconButton
+                    onClick={() => handleGenerateReport(conversation)}
+                    sx={{ color: '#e70000' }}
+                    title="Export PDF"
+                  >
+                    <PictureAsPdf />
+                  </IconButton>
+                </Box>
               </ListItemSecondaryAction>
             </ListItem>
           ))}

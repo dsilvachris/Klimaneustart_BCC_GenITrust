@@ -5,8 +5,9 @@ import { AnalyticsData } from "./mock_analytics_data";
 import StatCard from "./StatCard";
 import SimpleBarChart from "./SimpleBarChart";
 import SimplePieChart from "./SimplePieChart";
-import { DialerSipOutlined, PictureAsPdf } from "@mui/icons-material";
+import { DialerSipOutlined, PictureAsPdf, TableChart } from "@mui/icons-material";
 import { generateAnalyticsReport } from "../utils/pdfGenerator";
+import { exportAnalyticsToExcel } from "../utils/excelGenerator";
 // import { Assessment, PeopleAlt, AccessTimeFilled } from '@mui/icons-material';
 
 const API_BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:3001';
@@ -123,14 +124,24 @@ const AnalyticsDashboard: React.FC = () => {
         <Typography variant="h4" component="h1" fontWeight="bold">
           Analytics Dashboard
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<PictureAsPdf />}
-          onClick={() => generateAnalyticsReport(data)}
-          sx={{ bgcolor: '#e70000', '&:hover': { bgcolor: '#cc0000' } }}
-        >
-          Export PDF Report
-        </Button>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button
+            variant="contained"
+            startIcon={<PictureAsPdf />}
+            onClick={() => generateAnalyticsReport(data)}
+            sx={{ bgcolor: '#e70000', '&:hover': { bgcolor: '#cc0000' } }}
+          >
+            Export PDF
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<TableChart />}
+            onClick={() => exportAnalyticsToExcel(data)}
+            sx={{ bgcolor: '#00bb70', '&:hover': { bgcolor: '#009960' } }}
+          >
+            Export Excel
+          </Button>
+        </Box>
       </Box>
 
       {/* Stat Cards */}
